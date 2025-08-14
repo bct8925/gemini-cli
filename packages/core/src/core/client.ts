@@ -235,6 +235,17 @@ export class GeminiClient {
     try {
       const userMemory = this.config.getUserMemory();
       const systemInstruction = getCoreSystemPrompt(userMemory);
+
+      if (
+        this.config.getLoadUserMemoryInHistory &&
+        this.config.getLoadUserMemoryInHistory()
+      ) {
+        history.push({
+          role: 'user',
+          parts: [{ text: userMemory }],
+        });
+      }
+
       const generateContentConfigWithThinking = isThinkingSupported(
         this.config.getModel(),
       )

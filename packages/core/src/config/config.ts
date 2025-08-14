@@ -198,6 +198,7 @@ export interface ConfigParameters {
   chatCompression?: ChatCompressionSettings;
   interactive?: boolean;
   trustedFolder?: boolean;
+  loadUserMemoryInHistory?: boolean;
 }
 
 export class Config {
@@ -262,6 +263,7 @@ export class Config {
   private readonly chatCompression: ChatCompressionSettings | undefined;
   private readonly interactive: boolean;
   private readonly trustedFolder: boolean | undefined;
+  private readonly loadUserMemoryInHistory: boolean;
   private initialized: boolean = false;
 
   constructor(params: ConfigParameters) {
@@ -327,6 +329,7 @@ export class Config {
     this.chatCompression = params.chatCompression;
     this.interactive = params.interactive ?? false;
     this.trustedFolder = params.trustedFolder;
+    this.loadUserMemoryInHistory = params.loadUserMemoryInHistory ?? false;
 
     if (params.contextFileName) {
       setGeminiMdFilename(params.contextFileName);
@@ -703,6 +706,10 @@ export class Config {
 
   isInteractive(): boolean {
     return this.interactive;
+  }
+
+  getLoadUserMemoryInHistory(): boolean {
+    return this.loadUserMemoryInHistory;
   }
 
   async getGitService(): Promise<GitService> {
