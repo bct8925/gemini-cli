@@ -1,7 +1,3 @@
-# API keys and secrets
-.env
-.env~
-
 # gemini-cli settings
 .gemini/
 !gemini/config.yaml
